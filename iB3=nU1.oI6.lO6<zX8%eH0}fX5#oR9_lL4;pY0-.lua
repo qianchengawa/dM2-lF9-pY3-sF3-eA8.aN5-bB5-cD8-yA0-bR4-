@@ -12,7 +12,7 @@ local Window = Rayfield:CreateWindow({
 		Enabled = false,
 	},
 })
-
+local diff = isfile('TDM/STBBAutoFarm/Dif.json') and readfile('TDM/STBBAutoFarm/Dif.json') or 'Zombie'
 local Player = game:GetService('Players').LocalPlayer
 local Tab = Window:CreateTab('主要', 'camera')
 local val = isfile('TDM/STBBAutoFarm/Toggle.json') and readfile('TDM/STBBAutoFarm/Toggle.json') == 'true' or false
@@ -43,7 +43,7 @@ local r = Tab:CreateToggle({
 	end,
 })
 
-local diff = isfile('TDM/STBBAutoFarm/Dif.json') and readfile('TDM/STBBAutoFarm/Dif.json') or 'Zombie'
+
 
 local dif = Tab:CreateDropdown({
 	Name = '选择难度',
