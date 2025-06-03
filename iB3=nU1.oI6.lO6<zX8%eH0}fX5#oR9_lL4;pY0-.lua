@@ -77,7 +77,7 @@ local wave = Tab:CreateInput({
 	Flag = 'Input1',
 	Callback = function(Text)
 		waves = tonumber(Text)
-		writefile('TDM/STBBAutoFarm/Dif.json', tostring(tonumber(Text)))
+		writefile('TDM/STBBAutoFarm/Wave.json', tostring(tonumber(Text)))
 	end,
 })
 
