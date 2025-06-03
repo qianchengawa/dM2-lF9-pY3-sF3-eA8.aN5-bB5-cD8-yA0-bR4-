@@ -104,7 +104,7 @@ if game.PlaceId == 18816546575 then
 				if charcter and charcter.Parent then
 					game:GetService('TweenService'):Create(charcter.HumanoidRootPart,TweenInfo.new(0.5),{CFrame = CFrame.new(0,-1000,0)}):Play()
 					task.wait(0.5)
-					game:GetService('TweenService'):Create(charcter.HumanoidRootPart,TweenInfo.new(0.5),{CFrame = CFrame.new(0,-990,0)}):Play()
+					game:GetService('TweenService'):Create(charcter.HumanoidRootPart,TweenInfo.new(0.5),{CFrame = CFrame.new(0,0,0)}):Play()
 					task.wait(0.5)
 				end
 			until Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5
