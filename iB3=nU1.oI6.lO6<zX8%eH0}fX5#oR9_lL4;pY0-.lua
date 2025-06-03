@@ -145,7 +145,7 @@ if game.PlaceId == 18816546575 then
 					character:PivotTo(CFrame.lookAt(character:GetPivot().Position,pos.Position))
 				end
 				if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5 and nearst and nearst.Parent and nearst.Humanoid.Health>0 then
-					game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = nearst:GetPivot()}):Play()
+					game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = nearst:GetPivot() * CFrame.new(0,0,-2)}):Play()
 				end
 				game:GetService('ReplicatedStorage'):WaitForChild('LMB'):FireServer()
 				game:GetService('ReplicatedStorage'):WaitForChild('SkipHelicopter'):FireServer()
