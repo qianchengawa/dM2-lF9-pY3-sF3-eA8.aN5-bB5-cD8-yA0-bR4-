@@ -132,7 +132,7 @@ if game.PlaceId == 18816546575 then
 			end
 			local nearst
 			for i,v in ipairs(workspace.Living:GetChildren()) do
-				if v:FindFirstChild('Humanoid') and v:FindFirstChild('AI') then
+				if v:FindFirstChild('Humanoid') and v:FindFirstChild('AI') and v.Humanoid.Health > 0 then
 					if not nearst or nearst and (nearst:GetPivot().Position - character:GetPivot().Position).Magnitude > (v:GetPivot().Position - character:GetPivot().Position).Magnitude and v.Humanoid.Health > 0 then
 						nearst = v
 					end
