@@ -88,7 +88,7 @@ pcall(function()
 		aaa:ClickButton2(Vector2.new())
 	end)
 end)
-	
+
 if game.PlaceId == 18816546575 then
 	local function reset()
 		local charcter = game:GetService('Players').LocalPlayer.Character
@@ -140,11 +140,8 @@ if game.PlaceId == 18816546575 then
 				if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth <= 0.5 and not Player.Character:GetAttribute('Reseting') then
 					reset()
 				end
-				if nearst and nearst.Parent then
-					character:PivotTo(CFrame.lookAt(character:GetPivot().Position,nearst:GetPivot()))
-				end
 				if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5 and nearst and nearst.Parent and nearst.Humanoid.Health>0 then
-					game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = nearst:GetPivot() * CFrame.new(0,0,-2)}):Play()
+					game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = CFrame.lookAt((nearst:GetPivot() * CFrame.new(0,0,-2)).Position,nearst:GetPivot())}):Play()
 				end
 				game:GetService('ReplicatedStorage'):WaitForChild('LMB'):FireServer()
 				game:GetService('ReplicatedStorage'):WaitForChild('SkipHelicopter'):FireServer()
