@@ -141,8 +141,7 @@ if game.PlaceId == 18816546575 then
 					reset()
 				end
 				if nearst and nearst.Parent then
-					local pos,siz  = nearst:GetBoundingBox()
-					character:PivotTo(CFrame.lookAt(character:GetPivot().Position,pos.Position))
+					character:PivotTo(CFrame.lookAt(character:GetPivot().Position,nearst:GetPivot()))
 				end
 				if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5 and nearst and nearst.Parent and nearst.Humanoid.Health>0 then
 					game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = nearst:GetPivot() * CFrame.new(0,0,-2)}):Play()
