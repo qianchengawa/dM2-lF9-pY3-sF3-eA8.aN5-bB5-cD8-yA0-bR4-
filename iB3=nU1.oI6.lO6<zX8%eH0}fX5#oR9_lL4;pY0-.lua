@@ -117,37 +117,37 @@ if game.PlaceId == 18816546575 then
 			game:GetService('ReplicatedStorage'):WaitForChild('Vote'):FireServer(diff)
 			game:GetService('ReplicatedStorage'):WaitForChild('GetReadyRemote'):FireServer('1',true)
 		end)
-		game:GetService('RunService').RenderStepped:Connect(function()
-			if val then
-				local character = Player.Character
-				if workspace.TowerHealth.Value <= 10 then
-					game:GetService('TeleportService'):Teleport(18845414266,Player)
-				end
-				if workspace.Wave.Value >= waves then
-					game:GetService('TeleportService'):Teleport(18845414266,Player)
-				end
-				if character.Humanoid.Health <= 1 then
-					game:GetService('TeleportService'):Teleport(18845414266,Player)
-				end
-				local nearst
-				for i,v in ipairs(workspace.Living:GetChildren()) do
-					if v:FindFirstChild('Humanoid') and v:FindFirstChild('AI') then
-						if not nearst or nearst and (nearst:GetPivot().Position - character:GetPivot().Position).Magnitude > (v:GetPivot().Position - character:GetPivot().Position).Magnitude and v.Humanoid.Health > 0 then
-							nearst = v
-						end
+	end
+	game:GetService('RunService').RenderStepped:Connect(function()
+		if val then
+			local character = Player.Character
+			if workspace.TowerHealth.Value <= 10 then
+				game:GetService('TeleportService'):Teleport(18845414266,Player)
+			end
+			if workspace.Wave.Value >= waves then
+				game:GetService('TeleportService'):Teleport(18845414266,Player)
+			end
+			if character.Humanoid.Health <= 1 then
+				game:GetService('TeleportService'):Teleport(18845414266,Player)
+			end
+			local nearst
+			for i,v in ipairs(workspace.Living:GetChildren()) do
+				if v:FindFirstChild('Humanoid') and v:FindFirstChild('AI') then
+					if not nearst or nearst and (nearst:GetPivot().Position - character:GetPivot().Position).Magnitude > (v:GetPivot().Position - character:GetPivot().Position).Magnitude and v.Humanoid.Health > 0 then
+						nearst = v
 					end
 				end
-				if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth <= 0.5 and not Player.Character:GetAttribute('Reseting') then
-					reset()
-				end
-				if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5 and nearst and nearst.Parent and nearst.Humanoid.Health>0 then
-					game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = CFrame.lookAt((nearst:GetPivot() * CFrame.new(0,0,-2)).Position,nearst:GetPivot().Position)}):Play()
-				end
-				game:GetService('ReplicatedStorage'):WaitForChild('LMB'):FireServer()
-				game:GetService('ReplicatedStorage'):WaitForChild('SkipHelicopter'):FireServer()
 			end
-		end)
-	end
+			if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth <= 0.5 and not Player.Character:GetAttribute('Reseting') then
+				reset()
+			end
+			if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5 and nearst and nearst.Parent and nearst.Humanoid.Health>0 then
+				game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = CFrame.lookAt((nearst:GetPivot() * CFrame.new(0,0,-2)).Position,nearst:GetPivot().Position)}):Play()
+			end
+			game:GetService('ReplicatedStorage'):WaitForChild('LMB'):FireServer()
+			game:GetService('ReplicatedStorage'):WaitForChild('SkipHelicopter'):FireServer()
+		end
+	end)
 elseif game.PlaceId == 18845414266 then
 	if val then
 		game:GetService('ReplicatedStorage'):WaitForChild('MainHandler'):FireServer({'CreateRoom','','1145141919'})
