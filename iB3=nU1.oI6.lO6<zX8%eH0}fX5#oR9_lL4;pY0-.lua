@@ -92,22 +92,25 @@ end)
 if game.PlaceId == 18816546575 then
 	local function reset()
 		local charcter = game:GetService('Players').LocalPlayer.Character
-		for i,v in ipairs(charcter:GetDescendants()) do
-			if v:IsA('BasePart') then
-				v.CanCollide = false
-				v.CanQuery = false
-				v.CanTouch = false
-			end
-		end
-		pcall(function()
-			repeat
-				if charcter and charcter.Parent then
-					game:GetService('TweenService'):Create(charcter.HumanoidRootPart,TweenInfo.new(0.5),{CFrame = CFrame.new(0,-1000,0)}):Play()
-					task.wait(0.5)
-					charcter:PivotTo(CFrame.new(0,0,0))
+		if not charcter:GetAttribute("Reseting") then
+			charcter:SetAttribute("Reseting",true)
+			for i,v in ipairs(charcter:GetDescendants()) do
+				if v:IsA('BasePart') then
+					v.CanCollide = false
+					v.CanQuery = false
+					v.CanTouch = false
 				end
-			until Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5
-		end)
+			end
+			pcall(function()
+				repeat
+					if charcter and charcter.Parent then
+						game:GetService('TweenService'):Create(charcter.HumanoidRootPart,TweenInfo.new(0.5),{CFrame = CFrame.new(0,-1000,0)}):Play()
+						task.wait(0.5)
+						charcter:PivotTo(CFrame.new(0,0,0))
+					end
+				until Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5
+			end)
+		end
 	end
 	if val then
 		task.spawn(function()
