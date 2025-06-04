@@ -104,8 +104,7 @@ if game.PlaceId == 18816546575 then
 				if charcter and charcter.Parent then
 					game:GetService('TweenService'):Create(charcter.HumanoidRootPart,TweenInfo.new(0.5),{CFrame = CFrame.new(0,-1000,0)}):Play()
 					task.wait(0.5)
-					game:GetService('TweenService'):Create(charcter.HumanoidRootPart,TweenInfo.new(0.5),{CFrame = CFrame.new(0,0,0)}):Play()
-					task.wait(0.5)
+					charcter:PivotTo(CFrame.new(0,0,0))
 				end
 			until Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5
 		end)
@@ -132,10 +131,14 @@ if game.PlaceId == 18816546575 then
 				game:GetService('TeleportService'):Teleport(18845414266,Player)
 			end
 			local nearst
-			for i,v in ipairs(workspace.Living:GetChildren()) do
-				if v:FindFirstChild('Humanoid') and v:FindFirstChild('AI') and v.Humanoid.Health > 0 then
-					if not nearst or nearst and (nearst:GetPivot().Position - character:GetPivot().Position).Magnitude > (v:GetPivot().Position - character:GetPivot().Position).Magnitude and v.Humanoid.Health > 0 then
-						nearst = v
+			if workspace.Living:FindFirstChild("transmitterToilet") then
+				nearst = workspace.Living:FindFirstChild("transmitterToilet")
+			else
+				for i,v in ipairs(workspace.Living:GetChildren()) do
+					if v:FindFirstChild('Humanoid') and v:FindFirstChild('AI') and v.Humanoid.Health > 0 then
+						if not nearst or nearst and (nearst:GetPivot().Position - character:GetPivot().Position).Magnitude > (v:GetPivot().Position - character:GetPivot().Position).Magnitude and v.Humanoid.Health > 0 then
+							nearst = v
+						end
 					end
 				end
 			end
@@ -143,7 +146,8 @@ if game.PlaceId == 18816546575 then
 				reset()
 			end
 			if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5 and nearst and nearst.Parent and nearst.Humanoid.Health>0 then
-				game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = CFrame.lookAt((nearst:GetPivot() * CFrame.new(0,0,-2)).Position,nearst:GetPivot().Position)}):Play()
+				local pos,siz = character:GetBoundingBox()
+				game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = CFrame.lookAt((nearst:GetPivot() * CFrame.new(0,0,-siz.Z)).Position,nearst:GetPivot().Position)}):Play()
 			end
 			game:GetService('ReplicatedStorage'):WaitForChild('LMB'):FireServer()
 			game:GetService('ReplicatedStorage'):WaitForChild('SkipHelicopter'):FireServer()
