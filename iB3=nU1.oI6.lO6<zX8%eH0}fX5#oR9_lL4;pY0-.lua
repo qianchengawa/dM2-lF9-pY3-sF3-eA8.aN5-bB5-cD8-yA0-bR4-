@@ -81,6 +81,31 @@ local wave = Tab:CreateInput({
 	end,
 })
 
+local distance = isfile('TDM/STBBAutoFarm/Distance.json') and readfile('TDM/STBBAutoFarm/Distance.json') or 10
+local Slider = Tab:CreateSlider({
+	Name = "距离",
+	Range = {0, 100},
+	Increment = 10,
+	Suffix = "m",
+	CurrentValue = distance,
+	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		distance = Value
+		writefile('TDM/STBBAutoFarm/Distance.json', tostring(Value))
+	end,
+})
+
+local autodistance = isfile('TDM/STBBAutoFarm/AutoDistance.json') and readfile('TDM/STBBAutoFarm/AutoDistance.json') == "true" or false
+local r = Tab:CreateToggle({
+	Name = '自动距离',
+	CurrentValue = val,
+	Flag = 'Toggle1',
+	Callback = function(Value)
+		autodistance = Value
+		writefile('TDM/STBBAutoFarm/AutoDistance.json', tostring(Value))
+	end,
+})
+
 pcall(function()
 	game:GetService('Players').LocalPlayer.Idled:connect(function()
 		local aaa = game:GetService("VirtualUser")
@@ -150,7 +175,7 @@ if game.PlaceId == 18816546575 then
 			end
 			if Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5 and nearst and nearst.Parent and nearst.Humanoid.Health>0 then
 				local pos,siz = character:GetBoundingBox()
-				game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = CFrame.lookAt((nearst:GetPivot() * CFrame.new(0,0,-siz.Z)).Position,nearst:GetPivot().Position)}):Play()
+				game:GetService('TweenService'):Create(character.HumanoidRootPart,TweenInfo.new((nearst:GetPivot().Position - character:GetPivot().Position).Magnitude/1000),{CFrame = CFrame.lookAt((nearst:GetPivot() * CFrame.new(0,0,autodistance and -siz.Z or distance)).Position,nearst:GetPivot().Position)}):Play()
 			end
 			game:GetService('ReplicatedStorage'):WaitForChild('LMB'):FireServer()
 			game:GetService('ReplicatedStorage'):WaitForChild('SkipHelicopter'):FireServer()
