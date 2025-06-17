@@ -36,7 +36,7 @@ local r = Tab:CreateToggle({
 		elseif game.PlaceId == 18845414266 then
 			if val then
 				game:GetService('ReplicatedStorage'):WaitForChild('MainHandler'):FireServer({'CreateRoom','','1145141919'})
-				task.wait()
+				task.wait(1)
 				game:GetService('ReplicatedStorage'):WaitForChild('MainHandler'):FireServer({'Start'})
 			end
 		end
@@ -184,7 +184,7 @@ if game.PlaceId == 18816546575 then
 elseif game.PlaceId == 18845414266 then
 	if val then
 		game:GetService('ReplicatedStorage'):WaitForChild('MainHandler'):FireServer({'CreateRoom','','1145141919'})
-		task.wait()
+		task.wait(1)
 		game:GetService('ReplicatedStorage'):WaitForChild('MainHandler'):FireServer({'Start'})
 	end
 else
