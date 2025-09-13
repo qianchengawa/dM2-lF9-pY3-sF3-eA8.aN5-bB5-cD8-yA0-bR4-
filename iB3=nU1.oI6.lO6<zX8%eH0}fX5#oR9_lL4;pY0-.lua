@@ -116,26 +116,23 @@ end)
 
 if game.PlaceId == 18816546575 then
 	local function reset()
-		local charcter = game:GetService('Players').LocalPlayer.Character
-		if not charcter:GetAttribute("Reseting") then
-			charcter:SetAttribute("Reseting",true)
-			for i,v in ipairs(charcter:GetDescendants()) do
-				if v:IsA('BasePart') then
-					v.CanCollide = false
-					v.CanQuery = false
-					v.CanTouch = false
-				end
+		local charcter = game:GetService("Players").LocalPlayer.Character
+		for i,v in ipairs(charcter:GetDescendants()) do
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+				v.CanQuery = false
+				v.CanTouch = false
 			end
-			pcall(function()
-				repeat
-					if charcter and charcter.Parent then
-						game:GetService('TweenService'):Create(charcter.HumanoidRootPart,TweenInfo.new(0.5),{CFrame = CFrame.new(0,-1000,0)}):Play()
-						task.wait(0.5)
-						charcter:PivotTo(CFrame.new(0,0,0))
-					end
-				until Player.Character.Humanoid.Health/Player.Character.Humanoid.MaxHealth > 0.5
-			end)
 		end
+		if charcter:FindFirstChildOfClass("BodyVelocity") then
+			charcter:FindFirstChildOfClass("BodyVelocity"):Destroy()
+		end
+		if charcter:FindFirstChildWhichIsA("BodyVelocity") then
+			charcter:FindFirstChildWhichIsA("BodyVelocity"):Destroy()
+		end
+		local ve = Instance.new("BodyVelocity",charcter.PrimaryPart)
+		ve.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+		ve.Velocity = Vector3.new(0,-10000,0)
 	end
 	if val then
 		task.spawn(function()
@@ -149,7 +146,8 @@ if game.PlaceId == 18816546575 then
 	game:GetService('RunService').RenderStepped:Connect(function()
 		if val then
 			local character = Player.Character
-			if workspace.TowerHealth.Value <= 10 then
+			
+			if workspace:FindFirstChild("TowerHealth") and workspace.TowerHealth.Value <= 10 then
 				game:GetService('TeleportService'):Teleport(18845414266,Player)
 			end
 			if workspace.Wave.Value >= waves then
@@ -163,7 +161,7 @@ if game.PlaceId == 18816546575 then
 				nearst = workspace.Living:FindFirstChild("transmitterToilet")
 			else
 				for i,v in ipairs(workspace.Living:GetChildren()) do
-					if v:FindFirstChild('Humanoid') and v:FindFirstChild('AI') and v.Humanoid.Health > 0 then
+					if v:FindFirstChild('Humanoid') and v:FindFirstChild('AI') and not game:GetService("Players"):GetPlayerFromCharacter(v) and v.Humanoid.Health > 0 then
 						if not nearst or nearst and (nearst:GetPivot().Position - character:GetPivot().Position).Magnitude > (v:GetPivot().Position - character:GetPivot().Position).Magnitude and v.Humanoid.Health > 0 then
 							nearst = v
 						end
