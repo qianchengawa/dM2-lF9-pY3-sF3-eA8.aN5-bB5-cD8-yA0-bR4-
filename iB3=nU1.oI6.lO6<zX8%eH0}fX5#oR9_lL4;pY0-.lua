@@ -16,7 +16,7 @@ local diff = isfile('TDM/STBBAutoFarm/Dif.json') and readfile('TDM/STBBAutoFarm/
 local Player = game:GetService('Players').LocalPlayer
 local Tab = Window:CreateTab('主要', 'camera')
 local val = isfile('TDM/STBBAutoFarm/Toggle.json') and readfile('TDM/STBBAutoFarm/Toggle.json') == 'true' or false
-local r = Tab:CreateToggle({
+lTab:CreateToggle({
 	Name = '自动挂机v1',
 	CurrentValue = val,
 	Flag = 'Toggle1',
@@ -45,7 +45,7 @@ local r = Tab:CreateToggle({
 
 
 
-local dif = Tab:CreateDropdown({
+Tab:CreateDropdown({
 	Name = '选择难度',
 	Options = {
 		'BossRush',
@@ -69,7 +69,7 @@ local dif = Tab:CreateDropdown({
 })
 
 local waves = isfile('TDM/STBBAutoFarm/Wave.json') and tonumber(readfile('TDM/STBBAutoFarm/Wave.json')) or math.huge
-local wave = Tab:CreateInput({
+Tab:CreateInput({
 	Name = '多少波自动重开',
 	CurrentValue = tostring(waves),
 	PlaceholderText = '',
@@ -82,13 +82,13 @@ local wave = Tab:CreateInput({
 })
 
 local distance = isfile('TDM/STBBAutoFarm/Distance.json') and readfile('TDM/STBBAutoFarm/Distance.json') or 10
-local Slider = Tab:CreateSlider({
+Tab:CreateSlider({
 	Name = "距离",
 	Range = {-100, 100},
 	Increment = 10,
 	Suffix = "m",
 	CurrentValue = distance,
-	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Flag = "Slider1",
 	Callback = function(Value)
 		distance = Value
 		writefile('TDM/STBBAutoFarm/Distance.json', tostring(Value))
@@ -96,9 +96,9 @@ local Slider = Tab:CreateSlider({
 })
 
 local autodistance = isfile('TDM/STBBAutoFarm/AutoDistance.json') and readfile('TDM/STBBAutoFarm/AutoDistance.json') == "true" or false
-local r = Tab:CreateToggle({
+Tab:CreateToggle({
 	Name = '自动距离',
-	CurrentValue = val,
+	CurrentValue = autodistance,
 	Flag = 'Toggle1',
 	Callback = function(Value)
 		autodistance = Value
@@ -145,14 +145,16 @@ if game.PlaceId == 18816546575 then
 	end
 	game:GetService('RunService').RenderStepped:Connect(function()
 		if val then
-			local character = Player.Character
+			if workspace.Wave.Value >= waves then
+				game:GetService('TeleportService'):Teleport(18845414266,Player)
+			end
 			
 			if workspace:FindFirstChild("TowerHealth") and workspace.TowerHealth.Value <= 10 then
 				game:GetService('TeleportService'):Teleport(18845414266,Player)
 			end
-			if workspace.Wave.Value >= waves then
-				game:GetService('TeleportService'):Teleport(18845414266,Player)
-			end
+			
+			local character = Player.Character
+			
 			if character.Humanoid.Health <= 1 then
 				game:GetService('TeleportService'):Teleport(18845414266,Player)
 			end
