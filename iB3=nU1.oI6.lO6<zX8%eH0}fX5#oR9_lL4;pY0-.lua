@@ -16,7 +16,7 @@ local diff = isfile('TDM/STBBAutoFarm/Dif.json') and readfile('TDM/STBBAutoFarm/
 local Player = game:GetService('Players').LocalPlayer
 local Tab = Window:CreateTab('主要', 'camera')
 local val = isfile('TDM/STBBAutoFarm/Toggle.json') and readfile('TDM/STBBAutoFarm/Toggle.json') == 'true' or false
-lTab:CreateToggle({
+Tab:CreateToggle({
 	Name = '自动挂机v1',
 	CurrentValue = val,
 	Flag = 'Toggle1',
@@ -148,13 +148,13 @@ if game.PlaceId == 18816546575 then
 			if workspace.Wave.Value >= waves then
 				game:GetService('TeleportService'):Teleport(18845414266,Player)
 			end
-			
+
 			if workspace:FindFirstChild("TowerHealth") and workspace.TowerHealth.Value <= 10 then
 				game:GetService('TeleportService'):Teleport(18845414266,Player)
 			end
-			
+
 			local character = Player.Character
-			
+
 			if character.Humanoid.Health <= 1 then
 				game:GetService('TeleportService'):Teleport(18845414266,Player)
 			end
